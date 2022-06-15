@@ -76,7 +76,7 @@ The following additional terms have precise definitions as used in this document
 **Mailbag-Message-ID:** An identifier assigned to each email message during the creation of a mailbag. Mailbag-Message-IDs are unique within a mailbag and must be valid filenames in both Unix-based and Windows operating systems. Thus, they cannot contain characters such as: <, >, :, ", /, \, |, ?, and *, and are RECOMMENDED to be 36 characters or less.
 
 
-**source: **The original capture method or format of email prior to the creation of a mailbag. This could be the IMAP protocol, or formats such as MBOX, EML, PST, etc. It is important to note that the source may not be the email account’s original form, but only the format that existed prior to packaging as a mailbag.
+**source:** The original capture method or format of email prior to the creation of a mailbag. This could be the IMAP protocol, or formats such as MBOX, EML, PST, etc. It is important to note that the source may not be the email account’s original form, but only the format that existed prior to packaging as a mailbag.
 
 
 ## 2. Overview of a Mailbag
@@ -133,7 +133,7 @@ Mailbags use identifiers to maintain connections between individual email messag
 
     <  >  :  "  /  \  |  ?  *
 
-Sequential numbers MAY be used as Mailbag-Message-IDs. It is RECOMMENDED for Mailbag-Message-IDs to be 36 characters at most to avoid file path character limits. Implementations can map Mailbag-Message-IDs to Message-IDs using the mailbag.csv tag file as defined in [Section 5.3](#5.3_mailbag.csv).
+Sequential numbers MAY be used as Mailbag-Message-IDs. It is RECOMMENDED for Mailbag-Message-IDs to be 36 characters at most to avoid file path character limits. Implementations can map Mailbag-Message-IDs to Message-IDs using the mailbag.csv tag file as defined in [Section 5.3](#53-mailbagcsv).
 
 
 ## 4. Payload Structure
@@ -183,9 +183,9 @@ If present, each of these format subdirectories MUST contain email in the format
 
 ### 4.2 Additional subdirectories within format subdirectories
 
-Format subdirectories MAY contain additional subdirectories that represent the folder structure of the source email account. It is RECOMMENDED to use additional subdirectories when an email account uses folders meaningfully to preserve the original arrangement of the email account. This MAY include the directory structure of export files being packaged. This MAY be joined with directory structures contained within .pst files or email folders extracted from X-Folder, X-Gmail-Labels, or other email header fields. The Derivatives-Path field within the mailbag.csv tag file, as described in [Section 5.3.2](#5.3.2_mailbag.csv_columns) MUST document any additional subdirectories.
+Format subdirectories MAY contain additional subdirectories that represent the folder structure of the source email account. It is RECOMMENDED to use additional subdirectories when an email account uses folders meaningfully to preserve the original arrangement of the email account. This MAY include the directory structure of export files being packaged. This MAY be joined with directory structures contained within .pst files or email folders extracted from X-Folder, X-Gmail-Labels, or other email header fields. The Derivatives-Path field within the mailbag.csv tag file, as described in [Section 5.3.2](#532-mailbagcsv-columns) MUST document any additional subdirectories.
 
-A mailbag may not contain every email folder originally present in the email account. In this case, it is RECOMMENDED to document which folders were not retained in a tag file named “folders_not_retained.txt”, as defined in [Section 5.4.2](#5.4.2_Example_folders_not_retained.txt).
+A mailbag may not contain every email folder originally present in the email account. In this case, it is RECOMMENDED to document which folders were not retained in a tag file named “folders_not_retained.txt”, as defined in [Section 5.4.2](#542-example-folders_not_retainedtxt).
 
 
 #### 4.2.1 Example of format subdirectories with additional subdirectories
@@ -231,7 +231,7 @@ A mailbag may not contain every email folder originally present in the email acc
 
 #### 4.2.2 Additional Subdirectories and Filesystem Incompatibility
 
-Since they may include paths extracted from .pst file or email headers, names of additional subdirectories may contain characters that cannot be written as filesystem directories. Mailbags manage this using the Original-File, Message-Path, and Derivatives-Path fields contained in the mailbag.csv tag file, as described in [Section 5.3.2](#5.3.2_mailbag.csv_columns). The Message-Path MUST contain the string as read from a .pst file or email header and the Derivatives-Path field MUST be escaped and be able to be written to directories on the filesystem that packaged the mailbag. A user can compare these fields to recreate any intellectual arrangements with escaped directory paths.
+Since they may include paths extracted from .pst file or email headers, names of additional subdirectories may contain characters that cannot be written as filesystem directories. Mailbags manage this using the Original-File, Message-Path, and Derivatives-Path fields contained in the mailbag.csv tag file, as described in [Section 5.3.2](#532-mailbagcsv-columns). The Message-Path MUST contain the string as read from a .pst file or email header and the Derivatives-Path field MUST be escaped and be able to be written to directories on the filesystem that packaged the mailbag. A user can compare these fields to recreate any intellectual arrangements with escaped directory paths.
 
 Mailbag implementations SHOULD also follow the interoperability recommendations in [Bagit specification section 6.1.1.3](https://tools.ietf.org/html/rfc8493#section-6.1.1.3).
 
@@ -716,7 +716,7 @@ Additionally, a mailbag.csv MAY contain the following optional column headers in
 
 **Mailbag-Message-ID (required):**
 
- * An identifier created for each email message as it is packaged into a mailbag as described by [Section 3](#3._Identifiers).
+ * An identifier created for each email message as it is packaged into a mailbag as described by [Section 3](#3-identifiers).
 
 **Message-ID (required):**
 
@@ -748,13 +748,13 @@ Additionally, a mailbag.csv MAY contain the following optional column headers in
 
 **Derivatives-Path (required):**
 
- * The path to all message derivatives relative to a message’s format subdirectory. This is a join of Original-File and Message-Path. The explicit path to all derivatives can be inferred by joining a message’s format subdirectory as defined in [Section 4.1](#4.1_Format_subdirectories) and the Derivatives-Path field.
+ * The path to all message derivatives relative to a message’s format subdirectory. This is a join of Original-File and Message-Path. The explicit path to all derivatives can be inferred by joining a message’s format subdirectory as defined in [Section 4.1](#41-format-subdirectories) and the Derivatives-Path field.
 
 
  * Since a Message-Path may contain characters that are invalid, these characters must be escaped in Derivatives-Path so they are valid as directory names on the filesystem used to package the mailbag. A mailbag is not otherwise opinionated on which escaping method implementations use. A message can be connected to its unescaped arrangement path by mapping Derivatives-Path to Message-Path.
 
 
- * A derivative’s filename MUST be the message’s Mailbag-Message-ID as defined in  [Section 4.4.1](#4.4.1_Message_File_Names). The format of Derivatives-Path MUST comply with the rules for Bagit manifests as defined in [Bagit 2.1.3](https://tools.ietf.org/html/rfc8493#section-2.1.3), meaning the slash character ('/') MUST be used as a path separator.
+ * A derivative’s filename MUST be the message’s Mailbag-Message-ID as defined in  [Section 4.4.1](#441-message-file-names). The format of Derivatives-Path MUST comply with the rules for Bagit manifests as defined in [Bagit 2.1.3](https://tools.ietf.org/html/rfc8493#section-2.1.3), meaning the slash character ('/') MUST be used as a path separator.
 
  Examples:
 
@@ -854,7 +854,6 @@ DOI 10.17487/RFC8174
 URL: [https://tools.ietf.org/html/rfc8174](https://tools.ietf.org/html/rfc8174)
 
 **[RFC8493]**
-
 Kunze, J., Littman, J., Madden, E., Scancella, J., Adams, C., “The BagIt File Packaging Format (V1.0),” IETF. October 2018.
 DOI 10.17487/RFC8493
 URL:[ https://tools.ietf.org/html/rfc8493](https://tools.ietf.org/html/rfc8493)
