@@ -1,6 +1,5 @@
 
-# Mailbag Specification (0.3)
-### (Release Candidate)
+# Mailbag Specification (1.0)
 
 This is a display version of the specification, which is managed and versioned with markdown in a [Github repository](https://github.com/UAlbanyArchives/mailbag-specification).
 
@@ -36,7 +35,7 @@ The Mailbag Specification is an extension of [RFC 8493](https://tools.ietf.org/h
 
 ### 1.2 Status of this Document
 
-Mailbag Specification 1.0 (Release Candidate)
+Mailbag Specification 1.0
 
 
 ### 1.3 License
