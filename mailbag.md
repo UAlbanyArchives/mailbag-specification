@@ -242,7 +242,7 @@ Mailbag implementations SHOULD also follow the interoperability recommendations 
 
 A mailbag payload directory MAY contain a subdirectory labeled “attachments”. The Attachment Subdirectory OPTIONALLY contains attachment files extracted from email messages. It is RECOMMENDED to extract attachments and place them in the attachment subdirectory when creating derivative formats that do not contain embedded attachments, such as PDF derivatives.
 
-If present, the Attachment Subdirectory MUST contain additional subdirectories named with the Mailbag-Message-ID of the email where the contained attachments were extracted from. If present, these Mailbag-Message-ID subdirectories SHOULD contain files attached to the corresponding email message. \
+If present, the Attachment Subdirectory MUST contain additional subdirectories named with the Mailbag-Message-ID of the email where the contained attachments were extracted from. If present, these Mailbag-Message-ID subdirectories SHOULD contain files attached to the corresponding email message.
 
 Additionally, the attachment Mailbag-Message-ID subdirectories MUST contain a CSV file named "attachments.csv" containing a line for each attachment. These CSV files MUST comply with CSV rules described in [Section 5.5](#55-CSV-Tag-Files).
 
@@ -336,11 +336,11 @@ Email messages may contain URL links as attachments. Links as attachments SHOULD
               |     +-- [payload files]
               +-- attachments/
                     +-- 1/
-					|    -- attachments.csv
+                    |    -- attachments.csv
                     |    -- link.url
                     |    -- link.warc
                     +-- 2/
-					|    -- attachments.csv
+                    |    -- attachments.csv
                     |    -- meeting.ics
                     ...
 
@@ -661,6 +661,7 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
     Mailbag-Agent-Version: 0.0.1
     Capture-Date: 2021-05-04T18:16:23+00:00
     Capture-Agent: imaplib
+	Capture-Agent-Version: 3.9.12
     MBOX-Format-Details: MBOXO
     MBOX-Software-Agent: mailbox
     MBOX-Software-Version: 0.4
