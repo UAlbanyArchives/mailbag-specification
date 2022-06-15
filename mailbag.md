@@ -528,7 +528,7 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
 
 **Bagging-Date:**
 
- * Date (YYYY-MM-DD) denoting when a mailbag was packaged. Less-precise duplicate of Package-Date for compatibility with Bagit implementations.
+ * Date (YYYY-MM-DD) denoting when a mailbag was packaged. Less-precise duplicate of Bagging-Timestamp for compatibility with Bagit implementations.
 
 **External-Identifier:**
 
@@ -555,7 +555,7 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
 
 **Capture-Date:**
 
- * Timestamp denoting when the email included in a mailbag was originally captured. May be similar to Package-Date if a mailbag was packaged using the IMAP protocol. MUST conform to [RFC3339](https://tools.ietf.org/html/rfc3339), such as 1937-01-01T12:00:27.87+00:20. Mapped to PREMIS capture event, eventDateTime field.
+ * Timestamp denoting when the email included in a mailbag was originally captured. May be similar to Bagging-Date if a mailbag was packaged using the IMAP protocol. MUST conform to [RFC3339](https://tools.ietf.org/html/rfc3339), such as 1937-01-01T12:00:27.87+00:20. Mapped to PREMIS capture event, eventDateTime field.
 
 **Capture-Agent:**
 
@@ -631,8 +631,8 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
     Mailbag-Source: MBOX
 	Mailbag-Specification-Version: 1.0
     Original-Included: True
-    Package-Date: 2021-05-05T10:33:54+00:00
     Bagging-Date: 2021-05-05
+	Bagging-Timestamp: 2021-05-05T10:33:54+00:00
     External-Identifier: 6700b2a1-f7fb-48d1-92b3-4ba1f5fc88d0
     Mailbag-Agent: mailbag
     Mailbag-Agent-Version: 0.0.1
@@ -654,8 +654,8 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
     Mailbag-Source: IMAP
 	Mailbag-Specification-Version: 1.0
     Original-Included: False
-    Package-Date: 2021-05-04T18:16:58+00:00
     Bagging-Date: 2021-05-04
+	Bagging-Timestamp: 2021-05-04T18:16:58+00:00
     External-Identifier: 944efc3e-d9df-40ad-8b87-fbb120241ddb
     Mailbag-Agent: mailbag
     Mailbag-Agent-Version: 0.0.1
@@ -682,8 +682,8 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
     Mailbag-Source: PDF
 	Mailbag-Specification-Version: 1.0
     Original-Included: True
-    Package-Date: 2021-04-14T13:33:42+00:00
     Bagging-Date: 2021-04-14
+	Bagging-Timestamp: 2021-04-14T13:33:42+00:00
     External-Identifier: 64bd6983-b0d0-4cd5-9521-d04ee8da3dae
     Mailbag-Agent: mailbag
     Mailbag-Agent-Version: 0.0.1
@@ -698,8 +698,8 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
     Mailbag-Source: PST
 	Mailbag-Specification-Version: 1.0
     Original-Included: True
-    Package-Date: 2020-03-08T22:31:12+00:00
     Bagging-Date: 2021-03-08
+	Bagging-Timestamp: 2020-03-08T22:31:12+00:00
     External-Identifier: 08c91329-12a2-4360-b60a-0075aba3f6fd
     Mailbag-Agent: mailbag
     Mailbag-Agent-Version: 0.0.1
