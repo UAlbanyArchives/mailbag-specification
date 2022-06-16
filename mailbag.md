@@ -5,33 +5,20 @@ This is a display version of the specification, which is managed and versioned w
 
 ## Contributors
 
-Alison Rhonemus
-
-Dave Mayo
-
-Gregory Wiedeman
-
-Hannah Wang
-
-Hillel Arnold
-
-Jessica Smith
-
-Joshua Westgard
-
-Katherine Martinez
-
-Mark Wolfe
-
-Mat Kelly
-
-Nathan Tallman
-
-Santhilata Venkata
-
-Walker Sampson
-
-Winnie Schwaid-Lindner
+* Alison Rhonemus
+* Dave Mayo
+* Gregory Wiedeman
+* Hannah Wang
+* Hillel Arnold
+* Jessica Smith
+* Joshua Westgard
+* Katherine Martinez
+* Mark Wolfe
+* Mat Kelly
+* Nathan Tallman
+* Santhilata Venkata
+* Walker Sampson
+* Winnie Schwaid-Lindner
 
 
 ## 1. Introduction
