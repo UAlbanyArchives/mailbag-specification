@@ -535,7 +535,7 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
 
 **External-Identifier:**
 
- * An identifier for the mailbag as a whole supplied by the agent creating the mailbag.
+ * An identifier for the mailbag as a whole supplied by the agent creating the mailbag. Mapped to PREMIS object, objectIdentifierValue field.
 
 **Mailbag-Agent:**
 
@@ -637,8 +637,8 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
     Bagging-Date: 2021-05-05
 	Bagging-Timestamp: 2021-05-05T10:33:54+00:00
     External-Identifier: 6700b2a1-f7fb-48d1-92b3-4ba1f5fc88d0
-    Mailbag-Agent: mailbag
-    Mailbag-Agent-Version: 0.0.1
+    Mailbag-Agent: mailbagit
+    Mailbag-Agent-Version: 0.3.0
     Capture-Date: 2016-11-16T09:58:31+00:00
     Capture-Agent: Gmail Export
     MBOX-Format-Details: MBOXO
@@ -660,8 +660,8 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
     Bagging-Date: 2021-05-04
 	Bagging-Timestamp: 2021-05-04T18:16:58+00:00
     External-Identifier: 944efc3e-d9df-40ad-8b87-fbb120241ddb
-    Mailbag-Agent: mailbag
-    Mailbag-Agent-Version: 0.0.1
+    Mailbag-Agent: mailbagit
+    Mailbag-Agent-Version: 0.3.0
     Capture-Date: 2021-05-04T18:16:23+00:00
     Capture-Agent: imaplib
 	Capture-Agent-Version: 3.9.12
@@ -688,8 +688,8 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
     Bagging-Date: 2021-04-14
 	Bagging-Timestamp: 2021-04-14T13:33:42+00:00
     External-Identifier: 64bd6983-b0d0-4cd5-9521-d04ee8da3dae
-    Mailbag-Agent: mailbag
-    Mailbag-Agent-Version: 0.0.1
+    Mailbag-Agent: mailbagit
+    Mailbag-Agent-Version: 0.3.0
     PDF-Format-Details: PDF
     PDF-Software-Agent: wkhtmltopdf
     PDF-Software-Version: 0.12.6
@@ -704,8 +704,8 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
     Bagging-Date: 2021-03-08
 	Bagging-Timestamp: 2020-03-08T22:31:12+00:00
     External-Identifier: 08c91329-12a2-4360-b60a-0075aba3f6fd
-    Mailbag-Agent: mailbag
-    Mailbag-Agent-Version: 0.0.1
+    Mailbag-Agent: mailbagit
+    Mailbag-Agent-Version: 0.3.0
     PST-Format-Details: 7.2
     PST-Software-Agent: libpff
     PST-Software-Version: 20161119

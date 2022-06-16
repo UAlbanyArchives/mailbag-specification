@@ -1,0 +1,14 @@
+<premis:event>
+	<premis:eventIdentifier>
+		<premis:eventIdentifierType>Mailbag Spec</premis:eventIdentifierType>
+		<premis:eventIdentifierValue>0002</premis:eventIdentifierValue>
+	</premis:eventIdentifier>
+	<premis:eventType>packing</premis:eventType>
+	<premis:eventDateTime>2021-05-05T10:33:54+00:00</premis:eventDateTime>
+	<premis:eventDetailInformation>
+	<premis:eventDetailExtension>
+	<premis:eventDetailProgram>mailbag</premis:eventDetailProgram>
+	<premis:eventDetailVersion>0.3.0</premis:eventDetailVersion>
+	<premis:eventDetailExtension>
+	</premis:eventDetailInformation>
+</premis:event>
