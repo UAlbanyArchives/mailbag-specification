@@ -409,12 +409,11 @@ Mailbag implementations SHOULD also follow the interoperability recommendations 
               |     ...
               +-- attachments/
                      +-- 1/
-					 |    -- attachments.csv
+                     |    -- attachments.csv
                      |    -- Image1.jpg
                      |    -- Image2.jpg
                      +-- 3/
-					      -- attachments.csv
-                          -- original_filenames.txt
+                          -- attachments.csv
                           -- packageList.pdf
                           -- draft_for_review.odt
                           -- 3-2.odt
