@@ -1,3 +1,10 @@
+---
+layout: page
+title: Mailbag Specification
+permalink: /spec/
+nav_order: 2
+has_children: true
+---
 
 # Mailbag Specification (1.0)
 
