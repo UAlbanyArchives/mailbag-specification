@@ -1,3 +1,7 @@
+---
+nav_exclude: true
+---
+
 # Mailbag Specification
 A specification for packaging email in multiple formats
 
