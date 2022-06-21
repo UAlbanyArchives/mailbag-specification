@@ -244,7 +244,7 @@ A mailbag payload directory MAY contain a subdirectory labeled “attachments”
 
 If present, the Attachment Subdirectory MUST contain additional subdirectories named with the Mailbag-Message-ID of the email where the contained attachments were extracted from. If present, these Mailbag-Message-ID subdirectories SHOULD contain files attached to the corresponding email message.
 
-Additionally, the attachment Mailbag-Message-ID subdirectories MUST contain a CSV file named "attachments.csv" containing a line for each attachment. These CSV files MUST comply with CSV rules described in [Section 5.5](#55-CSV-Tag-Files).
+Additionally, the attachment Mailbag-Message-ID subdirectories MUST contain a CSV file named "attachments.csv" containing a line for each attachment. These CSV files MUST comply with CSV rules described in [Section 5.5](#55-csv-tag-files).
 
 #### 4.3.1 attachments.csv column headers 
 
@@ -301,10 +301,10 @@ Each attachments.csv file MUST contain the following column headers in the order
               +-- attachments/
                      +-- [Mailbag-Message-ID]/
                      |    -- attachments.csv
-					 |	  -- [payload files]
+                     |	  -- [payload files]
                      +-- [Mailbag-Message-ID]/
                      |    -- attachments.csv
-					 |	  -- [payload files]
+                     |	  -- [payload files]
                      ...
 
 
