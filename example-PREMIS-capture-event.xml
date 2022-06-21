@@ -1,0 +1,13 @@
+<premis:event>
+	<premis:eventIdentifier>
+		<premis:eventIdentifierType>Mailbag Spec</premis:eventIdentifierType>
+		<premis:eventIdentifierValue>0001</premis:eventIdentifierValue>
+	</premis:eventIdentifier>
+	<premis:eventType>capture</premis:eventType>
+	<premis:eventDateTime>2016-11-16T09:58:31+00:00</premis:eventDateTime>
+	<premis:eventDetailInformation>
+		<premis:eventDetailExtension>
+			<premis:eventDetailProgram>Gmail Export</premis:eventDetailProgram>
+		<premis:eventDetailExtension>
+	</premis:eventDetailInformation>
+</premis:event>

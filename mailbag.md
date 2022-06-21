@@ -1,25 +1,24 @@
 
-# Mailbag Specification (0.3)
-### (Release Candidate)
+# Mailbag Specification (1.0)
 
 This is a display version of the specification, which is managed and versioned with markdown in a [Github repository](https://github.com/UAlbanyArchives/mailbag-specification).
 
 ## Contributors
 
-Alison Rhonemus
-Dave Mayo
-Gregory Wiedeman
-Hannah Wang
-Hillel Arnold
-Jessica Smith
-Joshua Westgard
-Katherine Martinez
-Mark Wolfe
-Mat Kelly
-Nathan Tallman
-Santhilata Venkata
-Walker Sampson
-Winnie Schwaid-Lindner
+* Alison Rhonemus
+* Dave Mayo
+* Gregory Wiedeman
+* Hannah Wang
+* Hillel Arnold
+* Jessica Smith
+* Joshua Westgard
+* Katherine Martinez
+* Mark Wolfe
+* Mat Kelly
+* Nathan Tallman
+* Santhilata Venkata
+* Walker Sampson
+* Winnie Schwaid-Lindner
 
 
 ## 1. Introduction
@@ -36,7 +35,7 @@ The Mailbag Specification is an extension of [RFC 8493](https://tools.ietf.org/h
 
 ### 1.2 Status of this Document
 
-Mailbag Specification 1.0 (Release Candidate)
+Mailbag Specification 1.0
 
 
 ### 1.3 License
@@ -46,9 +45,9 @@ Mailbag Specification 1.0 (Release Candidate)
 
 ### 1.4 Requirements
 
-This document is designed as an extension of The BagIt File Packaging Format v1.0 [[RFC8493](https://tools.ietf.org/html/rfc8493)]. and all mailbags should comply with that specification. However, since [bagit-python](https://github.com/LibraryOfCongress/bagit-python) is currently only tested to support v0.97, mailbags conforming to that version are also valid.
+This document is designed as an extension of The BagIt File Packaging Format v1.0 [[RFC8493](https://tools.ietf.org/html/rfc8493)]. and it is recommended that all mailbags should comply with that specification. However, since [bagit-python](https://github.com/LibraryOfCongress/bagit-python) should be a common method of creating mailbags and bagit-python is currently only tested to support v0.97, and v1.0 support is unclear, mailbags conforming to that version are also valid.
 
-The key words “MAY”, “MUST”, “MUST NOT” ,“RECOMMENDED”, “OPTIONAL”, “SHOULD”, and “SHOULD NOT” in this document are to be interpreted as described in BCP 14 [[RFC2119](https://tools.ietf.org/html/rfc2119)] [[RFC8174](https://tools.ietf.org/html/rfc8174)] when, and only when, they appear in all capitals, as shown here.
+The key words “MAY”, “MUST”, “MUST NOT” ,“RECOMMENDED”, “REQUIRED”, “OPTIONAL”, “SHOULD”, and “SHOULD NOT” in this document are to be interpreted as described in BCP 14 [[RFC2119](https://tools.ietf.org/html/rfc2119)] [[RFC8174](https://tools.ietf.org/html/rfc8174)] when, and only when, they appear in all capitals, as shown here.
 
 
 ### 1.5 Terminology
@@ -58,30 +57,30 @@ This document relies on the terminology defined in the [Bagit specification sect
 The following additional terms have precise definitions as used in this document:
 
 
-**derivative:** An additional email format created during, or prior to, the creation of a mailbag. For example, a mailbag implementation may create multiple derivative formats for email, such as EML, PDF, or WARC during the creation of a mailbag.
+**source:** The original capture method or format of email prior to the creation of a mailbag. This could be the IMAP protocol, a proprietary API, or file formats such as MBOX, EML, PST, etc. It is important to note that the source may not be the email account’s original form, but only the format that existed prior to packaging as a mailbag.
+
+
+**derivative:** An additional email format created from the email source during, or prior to, the creation of a mailbag. For example, a mailbag implementation may create multiple derivative formats for email, such as EML, PDF, or WARC during the creation of a mailbag.
 
 
 **email folder:** A grouping of email created by an email account user to arrange and manage email. Inbox, Sent Mail, Drafts, and Trash are common default email folders, and email users also commonly create custom folders. Email folders can contain other email folders. The structure of email folders is included in PST exports, but is not fully represented in other export formats. A message’s folder also may or may not be included in its headers. The X-Folder header or the X-Gmail-Labels header in Gmail exports are common uses.
 
 
-**email format:** A file format used for storing email on a computer file system. Common email formats are MBOX, EML, PST, or MSG, and email may also be stored using PDF, WARC, or other file formats.
+**email format:** A file format used for storing email on a computer filesystem. Common email formats are MBOX, EML, PST, or MSG, and email may also be stored using PDF, WARC, or other file formats.
 
 
-**format subdirectories:** a set of optional directories in the payload of a mailbag. Format subdirectories are named using the lower case file extension of the email format they contain. For example, mailbags are expected to often contain “mbox,” “eml,” “pdf,” and/or, “warc” as format subdirectories.
+**format subdirectories:** A set of optional directories in the payload of a mailbag. Format subdirectories are named using the lower case file extension of the email format they contain. For example, mailbags are expected to often contain “mbox,” “eml,” “pdf,” and/or, “warc” as format subdirectories.
 
 
 **Message-ID:** An identifier for email messages generated by the client program sending the email. Message-ID is included in email headers and typically available in email formats such as MBOX, PST, EML, and MSG.
 
 
-**Mailbag-Message-ID:** An identifier assigned to each email message during the creation of a mailbag. Mailbag-Message-IDs are unique within a mailbag and must be valid filenames in both Unix-based and Windows operating systems. Thus, they cannot contain characters such as: <, >, :, ", /, \, |, ?, and *, and are RECOMMENDED to be 36 characters or less.
-
-
-**source:** The original capture method or format of email prior to the creation of a mailbag. This could be the IMAP protocol, or formats such as MBOX, EML, PST, etc. It is important to note that the source may not be the email account’s original form, but only the format that existed prior to packaging as a mailbag.
+**Mailbag-Message-ID:** An identifier assigned to each email message during the creation of a mailbag. Mailbag-Message-IDs are unique within a mailbag and must be valid filenames in both Unix-based and Windows operating systems. Thus, they cannot contain characters such as `< > : " / \ | ? *` and are RECOMMENDED to be 36 characters or less.
 
 
 ## 2. Overview of a Mailbag
 
-A mailbag is a set of directories and files with a common structure defined by this document and the [Bagit specification](https://tools.ietf.org/html/rfc8493). A mailbag is used to manage email serialized from an email account in multiple formats. Multiple email accounts are expected to require multiple mailbags.
+A mailbag is a set of directories and files with a common structure defined by this document and the [Bagit specification](https://tools.ietf.org/html/rfc8493). Since a number of formats have different affordances for email preservation, a mailbag is used to manage email exports by creating and connecting multiple derivative formats.
 
 A mailbag MUST be a valid Bagit bag with these additional requirements:
 
@@ -121,19 +120,20 @@ A mailbag MAY also contain a few optional elements:
               |     +-- [payload files]
               +-- attachments/
                     +-- [Mailbag-Message-ID]/
-                    |     +-- [payload files]
+                    |     -- attachments.csv
+                    |     -- [payload files]
                     +-- [Mailbag-Message-ID]/
-                    |     +-- [payload files]
-                     …
+                          -- attachments.csv
+                          -- [payload files]
 
 
 ## 3. Identifiers
 
-Mailbags use identifiers to maintain connections between individual email messages in different formats and filesystem locations. The commonly-used identifier for email messages is Message-ID as described in [RFC2392](https://tools.ietf.org/html/rfc2392). However, there are cases when the Message-ID for a message is not present and Message-IDs also commonly contain characters that are incompatible with some filesystems. Thus, mailbags contain an additional Mailbag-Message-ID for each message that are unique within a mailbag. Mailbag-Message-IDs are REQUIRED for each message and must be valid as filenames in both Unix-based and Windows operating systems. Thus they cannot contain characters such as:
+Mailbags use identifiers to maintain connections between individual email messages in different formats and filesystem locations. The commonly-used identifier for email messages is Message-ID as described in [RFC2392](https://tools.ietf.org/html/rfc2392). However, there are cases when the Message-ID for a message is not present and Message-IDs also commonly contain characters that are incompatible with some filesystems. Thus, mailbags contain an additional Mailbag-Message-ID for each message that is unique within a mailbag. They MUST be unique regardless of case, as "MSG-1" would be invalid if "msg-1" was already used. Mailbag-Message-IDs are REQUIRED for each message and must be valid as filenames in both Unix-based and Windows operating systems. For example, they cannot contain characters such as:
 
     <  >  :  "  /  \  |  ?  *
 
-Sequential numbers MAY be used as Mailbag-Message-IDs. It is RECOMMENDED for Mailbag-Message-IDs to be 36 characters at most to avoid file path character limits. Implementations can map Mailbag-Message-IDs to Message-IDs using the mailbag.csv tag file as defined in [Section 5.3](#53-mailbagcsv).
+Sequential numbers MAY be used as Mailbag-Message-IDs. It is RECOMMENDED for Mailbag-Message-IDs to be at most 36 characters long to avoid file path character limits. Implementations can map Mailbag-Message-IDs to Message-IDs using the mailbag.csv tag file as defined in [Section 5.3](#53-mailbagcsv).
 
 
 ## 4. Payload Structure
@@ -143,7 +143,7 @@ The payload directory of a mailbag MUST contain format subdirectories named afte
 
 ### 4.1 Format subdirectories
 
-A mailbag payload MUST contain at least one of the following set of optional format subdirectories:
+A mailbag payload MUST contain at least one subdirectory named from the following set:
 
 * mbox
 * pst
@@ -152,7 +152,9 @@ A mailbag payload MUST contain at least one of the following set of optional for
 * pdf
 * warc
 
-If present, each of these format subdirectories MUST contain email in the format designated by the name of the subdirectory. Format subdirectories MUST be in lower case and may contain either email in the source format or derivative formats. At least one payload subdirectory will be designated as the source format in a REQUIRED Mailbag-Source field in the bag-info.txt tag file. The format subdirectory for messages in the WARC format MUST be named “warc” even if the use of compression is denoted in the file extension, such as with “.warc.gz.”
+If present, each of these format subdirectories MUST contain email in the format designated by the name of the subdirectory. Format subdirectories MUST be in lower case and may contain either email in the source format or derivative formats. One payload subdirectory MAY be designated as the source format in a REQUIRED Mailbag-Source field in the bag-info.txt tag file. The format subdirectory for messages in the WARC format MUST be named “warc” even if the use of compression is denoted in the file extension, such as with “.warc.gz.”
+
+Additional, "companion" files outsile of the email formats designated by the folder name MAY also be present in the source format subdirectory. It is RECOMMENDED that companion files be limted to text-based metadata files, and for a clear association between companion files and the email formats they describe via a filenaming convention or bag-into.txt metadata.
 
 
 #### 4.2.1 Example of format subdirectories
@@ -231,19 +233,48 @@ A mailbag may not contain every email folder originally present in the email acc
 
 #### 4.2.2 Additional Subdirectories and Filesystem Incompatibility
 
-Since they may include paths extracted from .pst file or email headers, names of additional subdirectories may contain characters that cannot be written as filesystem directories. Mailbags manage this using the Original-File, Message-Path, and Derivatives-Path fields contained in the mailbag.csv tag file, as described in [Section 5.3.2](#532-mailbagcsv-columns). The Message-Path MUST contain the string as read from a .pst file or email header and the Derivatives-Path field MUST be escaped and be able to be written to directories on the filesystem that packaged the mailbag. A user can compare these fields to recreate any intellectual arrangements with escaped directory paths.
+Additional Subdirectories may include paths extracted from .pst files or email headers. Thus they may contain characters that cannot be written as  directory names in the local filesystem. Mailbags manage this using the Original-File, Message-Path, and Derivatives-Path fields contained in the mailbag.csv tag file, as described in [Section 5.3.2](#532-mailbagcsv-columns). The Message-Path MUST contain the string as read from a .pst file or email header and the Derivatives-Path field MUST be escaped and be able to be written to directories on the filesystem that packaged the mailbag. A user can compare these fields to recreate any intellectual arrangements with escaped directory paths.
 
 Mailbag implementations SHOULD also follow the interoperability recommendations in [Bagit specification section 6.1.1.3](https://tools.ietf.org/html/rfc8493#section-6.1.1.3).
 
 
 ### 4.3 Attachment Subdirectory
 
-A mailbag payload directory MAY contain a subdirectory labeled “attachments”. The Attachment Subdirectory OPTIONALLY contains attachment files extracted from email messages. It is RECOMMENDED to extract attachments and place them in the attachment subdirectory when creating derivative formats that do not contain embedded attachments, such as PDF and/or WARC derivatives.
+A mailbag payload directory MAY contain a subdirectory labeled “attachments”. The Attachment Subdirectory OPTIONALLY contains attachment files extracted from email messages. It is RECOMMENDED to extract attachments and place them in the attachment subdirectory when creating derivative formats that do not contain embedded attachments, such as PDF derivatives.
 
 If present, the Attachment Subdirectory MUST contain additional subdirectories named with the Mailbag-Message-ID of the email where the contained attachments were extracted from. If present, these Mailbag-Message-ID subdirectories SHOULD contain files attached to the corresponding email message.
 
+Additionally, the attachment Mailbag-Message-ID subdirectories MUST contain a CSV file named "attachments.csv" containing a line for each attachment. These CSV files MUST comply with CSV rules described in [Section 5.5](#55-CSV-Tag-Files).
 
-#### 4.3.1 Example attachment subdirectory
+#### 4.3.1 attachments.csv column headers 
+
+Each attachments.csv file MUST contain the following column headers in the order that they are listed:
+
+ * Original-Filename
+ * Mailbag-Filename
+ * MimeType
+ * Content-ID
+ 
+#### 4.3.2 attachments.csv columns 
+
+**Original-Filename**:
+
+ * Denotes the original filename for the attachment. If the original filename for the attachment is unknown, this field should be "unknown".
+
+**Mailbag-Filename**:
+
+ * Denotes the filename used to write the attachment within the mailbag. This SHOULD be the same as Original-Filename, except for cases of missing filenames or interoperability issues as described in [Section 4.4.3](#443-attachment-filename-interoperability-issues).
+
+**MimeType**:
+
+* The MIME type for the attachment. For cases where the MimeType is unknown, it is RECOMMENDED to use an empty string.
+
+**Content-ID**:
+ 
+* The ContentID for the attachment listed in the source email. For cases where the ContentID is unknown, it is RECOMMENDED to use an empty string.
+
+ 
+#### 4.3.3 Example attachment subdirectory
 
 	<base directory>/
          |
@@ -269,13 +300,15 @@ If present, the Attachment Subdirectory MUST contain additional subdirectories n
               |     +-- [payload files]
               +-- attachments/
                      +-- [Mailbag-Message-ID]/
-                     |    +-- [payload files]
+                     |    -- attachments.csv
+					 |	  -- [payload files]
                      +-- [Mailbag-Message-ID]/
-                     |    +-- [payload files]
+                     |    -- attachments.csv
+					 |	  -- [payload files]
                      ...
 
 
-#### 4.3.2 Links as attachments
+#### 4.3.4 Links as attachments
 
 Email messages may contain URL links as attachments. Links as attachments SHOULD be serialized as .URL files. An attached link MAY also be stored as a WARC file in addition to a URL file.
 
@@ -302,18 +335,20 @@ Email messages may contain URL links as attachments. Links as attachments SHOULD
               +-- warc/
               |     +-- [payload files]
               +-- attachments/
-                    +-- 1/
-                    |    +-- link.url
-                    |    +-- link.warc
-                    +-- 2/
-                    |    +-- meeting.ics
+                    +-- [Mailbag-Message-ID]/
+                    |    -- attachments.csv
+                    |    -- link.url
+                    |    -- link.warc
+                    +-- [Mailbag-Message-ID]/
+                    |    -- attachments.csv
+                    |    -- meeting.ics
                     ...
 
 
-### 4.4. Payload File Names
+### 4.4 Payload Filenames
 
 
-#### 4.4.1 Message File Names
+#### 4.4.1 Message Filenames
 
 For source formats, it is RECOMMENDED to maintain the original filenames for both account-level or message-level files. For derivative formats, filenames MUST be the email’s Mailbag-Message-ID.
 
@@ -325,32 +360,23 @@ When account-level email formats, such as MBOX or PST, are the source format, it
 
 ##### 4.4.1.2 Message-level formats (EML, MSG, PDF, WARC)
 
-When the email source is a set of message-level formats, such as EML, MSG, or PDF, it is RECOMMENDED to maintain the original filenames for these files. Derivative formats for message-level email sources MUST also use the file’s Mailbag-Message-ID with a new file extension to reflect the change in format.
+When the email source is a set of message-level formats, such as EML, MSG, or PDF, it is RECOMMENDED to maintain the original filenames for these files. Derivative formats for message-level email sources still MUST use the file’s Mailbag-Message-ID with a new file extension to reflect the change in format.
 
-When the email source uses the IMAP protocol or account-level formats such as MBOX or PST, there will be no message-level original filenames, For these cases, message-level derivative files MUST also be named using each message’s Mailbag-Message-ID.
+When the email source uses the IMAP protocol or account-level formats such as MBOX or PST, there will be no message-level original filenames, For these cases, message-level derivative files MUST be named using each message’s Mailbag-Message-ID.
 
 File extensions for WARC files MAY denote if compression is used, such as the .warc.gz extension. 
 
 
-#### 4.4.2 Attachment File Names
+#### 4.4.2 Attachment Filenames
 
 It is RECOMMENDED to maintain the original filenames for attachments.
 
 
 #### 4.4.3 Attachment Filename Interoperability issues
 
-Attachment filenames provide the potential for interoperability issues, as creating a Mailbag in a Windows environment may attempt to handle filenames that were originally created in a POSIX environment. When any of the original filenames for a message are invalid, they MUST be renamed using the Mailbag-Message-ID followed by a hyphen (-) and an incremental integer. When any of the original filenames have been changed, the attachment subdirectory MUST contain a file named “original_filenames.txt” containing a list of the original filenames for all message attachments, followed by a space ( ), followed by the filename used in the mailbag, separated by a line feed character (LF or \n). Any attachments named “original_filename.txt” are to be treated as invalid.
+Attachment filenames provide the potential for interoperability issues, as creating a Mailbag in a Windows environment may attempt to handle filenames that were originally created in a POSIX environment. When any of the original filenames for a message are invalid, they MUST be renamed using the Mailbag-Message-ID followed by a hyphen (-) and an incremental integer. Filename changes will be documented in the associated attachments.csv file as described in [Section 4.3.1](432-attachmentscsv-columns).
 
 Mailbag implementations SHOULD also follow the interoperability recommendations in [Bagit specification section 6.1.1.3](https://tools.ietf.org/html/rfc8493#section-6.1.1.3).
-
-
-##### 4.4.4.1 Example original_filenames.txt
-
-packageList.pdf packageList.pdf
-
-draft_for_review.odt draft_for_review.odt
-
-draft:March 8 2020.odt 9SXvpbe2AtgvedwZJCfWF4-2.odt
 
 
 #### 4.4.4 Filename Example with MBOX as source
@@ -372,24 +398,25 @@ draft:March 8 2020.odt 9SXvpbe2AtgvedwZJCfWF4-2.odt
               +-- mbox/
               |     -- All mail Including Spam and Trash.mbox
               +-- pdf/
-              |     -- 8sPf2WLSpyp65KLcYNgpX5.pdf
-              |     -- LVGxWjUABLVB5dep5hZTiZ.pdf
-              |     -- 9SXvpbe2AtgvedwZJCfWF4.pdf
+              |     -- 1.pdf
+              |     -- 2.pdf
+              |     -- 3.pdf
               |    	...
               +-- warc/
-              |     -- 8sPf2WLSpyp65KLcYNgpX5.warc.gz
-              |     -- LVGxWjUABLVB5dep5hZTiZ.warc.gz
-              |     -- 9SXvpbe2AtgvedwZJCfWF4.warc.gz
+              |     -- 1.warc.gz
+              |     -- 2.warc.gz
+              |     -- 3.warc.gz
               |     ...
               +-- attachments/
-                     +-- 8sPf2WLSpyp65KLcYNgpX5/
+                     +-- 1/
+                     |    -- attachments.csv
                      |    -- Image1.jpg
                      |    -- Image2.jpg
-                     +-- 9SXvpbe2AtgvedwZJCfWF4/
-                          -- original_filenames.txt
+                     +-- 3/
+                          -- attachments.csv
                           -- packageList.pdf
                           -- draft_for_review.odt
-                          -- 9SXvpbe2AtgvedwZJCfWF4-2.odt
+                          -- 3-2.odt
 
 
 #### 4.4.5 Filename Example with EML as source
@@ -412,30 +439,35 @@ draft:March 8 2020.odt 9SXvpbe2AtgvedwZJCfWF4-2.odt
               |     -- A free and open internet.eml
               |     -- A simple pledge.eml
               |     -- A year of organizing.eml
-		      |     ...
+              |     ...
               +-- pdf/
               |     -- 1.pdf
               |     -- 2.pdf
               |     -- 3.pdf
-			  |    	...
+              |    	...
               +-- warc/
               |     -- 1.warc
               |     -- 2.warc
               |     -- 3.warc
-			  |   	...
+              |   	...
               +-- attachments/
                     +-- 1/
-					|	+-- Image1.jpg
-					|	+-- Image2.jpg
+                    |	-- attachments.csv
+                    |	-- Image1.jpg
+                    |	-- Image2.jpg
                     +-- 3/
-						+-- packageList.pdf
+                        -- attachments.csv
+                        -- packageList.pdf
+
+
+This example maintains the original filenames for message-level source formats per [Section 4.4.1.2](#4412-message-level-formats-eml-msg-pdf-warc). This can be mapped to the Mailbag-Message-ID using the Original-File field in the mailbag.csv tag file.
 
 
 ## 5. Tag Files
 
 A mailbag MUST contain the required Bagit tag files as specified in [Bagit 2.1](https://tools.ietf.org/html/rfc8493#section-2.1), including a bagit.txt bag declaration and a payload manifest. In addition to the Bagit minimum requirements, a mailbag MUST contain a bag-info.txt metadata file as specified in [Bagit 2.2.2](https://datatracker.ietf.org/doc/html/rfc8493#section-2.2.2), a tag manifest file as specified in [Bagit 2.2.1](https://tools.ietf.org/html/rfc8493#section-2.2.1), and an additional mailbag.csv comma separated values (CSV) file containing identifiers and a set of commonly used email headers for each message.
 
-Mailbag tag files MUST be UTF-8 encoded. Mailbag tag files, other than mailbag.csv, MUST use a line feed character (LF or \n) for line endings, while the mailbag.csv file MUST use carriage return and line feed characters (CRLF or \r\n). This inconsistency is necessary to meet both common practices for Bagit tag files and CSV files.
+Mailbag tag files MUST be UTF-8 encoded and SHOULD NOT contain a byte order mark (BOM). Tag files defined by the Bagit Specification MUST use a line feed character (LF or \n) for line endings. The mailbag.csv tag file defined in [Section 5.3](#53-mailbagcsv) MUST use carriage return and line feed characters (CRLF or \r\n). This inconsistency is necessary to meet both common practices for Bagit tag files and CSV files.
 
 A mailbag MAY also contain two additional tag files, named “folders_not_retained.txt” and “messages_not_retained.txt” which, if present, MUST document email folders and messages that were not retained prior to, or during, packaging, and thus are not present in the payload directory. A mailbag MAY also contain additional tag files that are not defined by this document as specified in [Bagit 2.2.4](https://tools.ietf.org/html/rfc8493#section-2.2.4).
 
@@ -459,13 +491,15 @@ A mailbag MAY also contain two additional tag files, named “folders_not_retain
          +-- messages_not_retained.txt
          |
          +-- data/
-				+-- [payload files]
+			+-- [payload files]
+			
 
 
 ### 5.2 Bag-info.txt
 
 As valid bags, mailbags retain the rules and reserved elements as specified in [Bagit 2.2.2](https://tools.ietf.org/html/rfc8493#section-2.2.2). A mailbag MUST contain the set of required Reserved Metadata Fields listed below, including the “Bagging-Date” and “External-Identifier’' fields that are reserved in [Bagit 2.2.2](https://tools.ietf.org/html/rfc8493#section-2.2.2). A mailbag MAY also contain any fields in the following set of Optional Metadata Fields. Possible values are quoted and listed in brackets. These values are case sensitive and should be included exactly as they appear. While the ordering of metadata elements MUST be preserved in compliance with [Bagit 2.2.2](https://datatracker.ietf.org/doc/html/rfc8493#section-2.2.2), Mailbags do not expect the order of bag-into.txt fields to be significant. All of both the Required Metadata Fields and the Optional Metadata Fields MUST NOT be repeated.
 
+Bag-info.txt metadata is extensible in accordance with [Bagit 2.2.2](https://tools.ietf.org/html/rfc8493#section-2.2.2) and custom fields MAY be used. It is RECOMMENDED to use bag-info.txt to describe the email account(s) preserved within a mailbag.
 
 #### 5.2.1 PREMIS Mapping
 
@@ -481,8 +515,12 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
 **Mailbag-Source:** [“imap”, “mbox”, “eml”, “pst”, “pdf”, “warc”]
 
  * Denotes the protocol or format from which the email was packaged into a mailbag.
+ 
+**Mailbag-Specification-Version:**
 
-**Original-Included: **[“True”, “False”]
+ * Denotes which version of the Mailbag Specification a mailbag is in compliance with.
+
+**Original-Included:** [“True”, “False”]
 
  * Denotes whether the original source format, such as an MBOX or set of EML files are included in original form. If an included MBOX file does not contain the same content as the original, such as if messages or email folders were excluded, the value MUST be “false”. Similarly if the email was packaged using the IMAP protocol, the value MUST be “false”. It is important to note that this does not refer to the email prior to capture, but the state of the email prior to packaging. Thus, if email was modified during its previous capture into an MBOX file, the value for this field would still be “True” so long as the unmodified MBOX file was maintained while it was later packaged into a mailbag.
 
@@ -492,11 +530,11 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
 
 **Bagging-Date:**
 
- * Date (YYYY-MM-DD) denoting when a mailbag was packaged. Less-precise duplicate of Package-Date for compatibility with Bagit implementations.
+ * Date (YYYY-MM-DD) denoting when a mailbag was packaged. Less-precise duplicate of Bagging-Timestamp for compatibility with Bagit implementations.
 
 **External-Identifier:**
 
- * An identifier for the mailbag as a whole supplied by the agent creating the mailbag.
+ * An identifier for the mailbag as a whole supplied by the agent creating the mailbag. Mapped to PREMIS object, objectIdentifierValue field.
 
 **Mailbag-Agent:**
 
@@ -519,7 +557,7 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
 
 **Capture-Date:**
 
- * Timestamp denoting when the email included in a mailbag was originally captured. May be similar to Package-Date if a mailbag was packaged using the IMAP protocol. MUST conform to [RFC3339](https://tools.ietf.org/html/rfc3339), such as 1937-01-01T12:00:27.87+00:20. Mapped to PREMIS capture event, eventDateTime field.
+ * Timestamp denoting when the email included in a mailbag was originally captured. May be similar to Bagging-Date if a mailbag was packaged using the IMAP protocol. MUST conform to [RFC3339](https://tools.ietf.org/html/rfc3339), such as 1937-01-01T12:00:27.87+00:20. Mapped to PREMIS capture event, eventDateTime field.
 
 **Capture-Agent:**
 
@@ -593,12 +631,13 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
 
     Bag-Type: Mailbag
     Mailbag-Source: MBOX
+	Mailbag-Specification-Version: 1.0
     Original-Included: True
-    Package-Date: 2021-05-05T10:33:54+00:00
     Bagging-Date: 2021-05-05
+	Bagging-Timestamp: 2021-05-05T10:33:54+00:00
     External-Identifier: 6700b2a1-f7fb-48d1-92b3-4ba1f5fc88d0
-    Mailbag-Agent: mailbag
-    Mailbag-Agent-Version: 0.0.1
+    Mailbag-Agent: mailbagit
+    Mailbag-Agent-Version: 0.3.0
     Capture-Date: 2016-11-16T09:58:31+00:00
     Capture-Agent: Gmail Export
     MBOX-Format-Details: MBOXO
@@ -615,14 +654,16 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
 
     Bag-Type: Mailbag
     Mailbag-Source: IMAP
+	Mailbag-Specification-Version: 1.0
     Original-Included: False
-    Package-Date: 2021-05-04T18:16:58+00:00
     Bagging-Date: 2021-05-04
+	Bagging-Timestamp: 2021-05-04T18:16:58+00:00
     External-Identifier: 944efc3e-d9df-40ad-8b87-fbb120241ddb
-    Mailbag-Agent: mailbag
-    Mailbag-Agent-Version: 0.0.1
+    Mailbag-Agent: mailbagit
+    Mailbag-Agent-Version: 0.3.0
     Capture-Date: 2021-05-04T18:16:23+00:00
     Capture-Agent: imaplib
+	Capture-Agent-Version: 3.9.12
     MBOX-Format-Details: MBOXO
     MBOX-Software-Agent: mailbox
     MBOX-Software-Version: 0.4
@@ -641,12 +682,13 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
 
     Bag-Type: Mailbag
     Mailbag-Source: PDF
+	Mailbag-Specification-Version: 1.0
     Original-Included: True
-    Package-Date: 2021-04-14T13:33:42+00:00
     Bagging-Date: 2021-04-14
+	Bagging-Timestamp: 2021-04-14T13:33:42+00:00
     External-Identifier: 64bd6983-b0d0-4cd5-9521-d04ee8da3dae
-    Mailbag-Agent: mailbag
-    Mailbag-Agent-Version: 0.0.1
+    Mailbag-Agent: mailbagit
+    Mailbag-Agent-Version: 0.3.0
     PDF-Format-Details: PDF
     PDF-Software-Agent: wkhtmltopdf
     PDF-Software-Version: 0.12.6
@@ -656,12 +698,13 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
 
     Bag-Type: Mailbag
     Mailbag-Source: PST
+	Mailbag-Specification-Version: 1.0
     Original-Included: True
-    Package-Date: 2020-03-08T22:31:12+00:00
     Bagging-Date: 2021-03-08
+	Bagging-Timestamp: 2020-03-08T22:31:12+00:00
     External-Identifier: 08c91329-12a2-4360-b60a-0075aba3f6fd
-    Mailbag-Agent: mailbag
-    Mailbag-Agent-Version: 0.0.1
+    Mailbag-Agent: mailbagit
+    Mailbag-Agent-Version: 0.3.0
     PST-Format-Details: 7.2
     PST-Software-Agent: libpff
     PST-Software-Version: 20161119
@@ -678,9 +721,9 @@ A mailbag is not expected to contain a full [PREMIS](https://www.loc.gov/standar
 
 ### 5.3 mailbag.csv
 
-A Mailbag MUST contain an additional tag file named “mailbag.csv.” The mailbag.csv file provides the necessary structure for mailbag implementations to connect multiple representations of each message, along with their Mailbag-Message-ID, relative locations within an account’s email folders, and number of attachments. This file MAY also contain commonly used email headers.
+A Mailbag MUST contain an additional tag file named “mailbag.csv.” The mailbag.csv file provides the necessary structure for mailbag implementations to connect multiple representations of each message, along with their Mailbag-Message-ID, relative locations within an account’s email folders, and number of attachments. This file MUST list each message included in a mailbag and MAY also contain commonly used email headers.
 
-The mailbag.csv file MUST be a UTF-8 encoded CSV file that complies with [RFC4180](https://tools.ietf.org/html/rfc4180) and lists each message included in a mailbag. The mailbag.csv file tries to meet the default csv dialect as expected by the Python csv library. This means that it MUST use a comma (,) as a delimiter, MUST use straight double quotes (") as quote characters for all fields, and MUST NOT use an additional escape character. In compliance with [RFC4180](https://tools.ietf.org/html/rfc4180), the mailbag.csv file MUST also use carriage return and line feed characters (CRLF or \r\n) for the record delimiter denoting line endings. This means that the mailbag.csv file will use a different line ending than the other tag files in a mailbag, which MUST use a line feed character (LF or \n) for line endings.
+The mailbag.csv MUST comply with CSV rules described in [Section 5.5](#55-CSV-Tag-Files)
 
 In compliance with [RFC4180](https://tools.ietf.org/html/rfc4180), all records/rows in the mailbag.csv file MUST contain the same number of fields, including the column header. For fields without values, it is RECOMMENDED to use an empty string.
 
@@ -825,6 +868,11 @@ A mailbag MAY contain two additional tag files used to denote that part of an em
 	Trash
 	...
 
+### 5.5 CSV Tag Files
+
+CSV tag files in a mailbag are strictly defined to reduce ambiguity as there are multiple ways of writing CSV files. All CSV tag files described in this specification, including mailbag.csv and attachment.csv files, MUST be UTF-8 endoded, MUST use a comma (,) as a delimiter, MUST use straight double quotes (") as quote characters for all fields, and MUST NOT use an additional escape character. In compliance with [RFC4180](https://tools.ietf.org/html/rfc4180), the mailbag.csv and attachment.csv files MUST also use carriage return and line feed characters (CRLF or \r\n) for the record delimiter denoting line endings. This means that these files will use a different line endings than the other plain text tag files in a mailbag, which MUST use a line feed character (LF or \n) for line endings as described in [Section 5](#5-tag-files). This requirement tries to meet the default csv dialect as expected by the Python csv library and that implementation should be used as guidance on any further ambiguities.
+
+It is RECOMMENDED that other CSV tag files within a mailbag follow these same rules.  
 
 ## 6. References
 
