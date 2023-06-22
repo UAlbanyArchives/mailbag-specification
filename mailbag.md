@@ -891,7 +891,7 @@ URL: [https://tools.ietf.org/html/rfc2119](https://tools.ietf.org/html/rfc2119)
 **[RFC2392]**
 Levinson, E., “Content-ID and Message-ID Uniform Resource Locators,” IETF, August 1998.
 DOI 10.17487/RFC2392
-URL:[ https://tools.ietf.org/html/rfc2392](https://tools.ietf.org/html/rfc8493)
+URL:[ https://tools.ietf.org/html/rfc2392](https://tools.ietf.org/html/rfc2392)
 
 **[RFC3339]**
 Klyne, G, Newman, C., “Date and Time on the Internet: Timestamps,” IETF, July 2002.
